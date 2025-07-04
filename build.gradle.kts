@@ -6,18 +6,18 @@ plugins {
 
 allprojects {
     repositories {
+        mavenLocal()
         mavenCentral()
     }
+
+    group = "io.github.jongmin-chung"
+    version = "3.0.0"
 }
 
 subprojects {
     apply(plugin = "java")
-    apply(plugin = "maven-publish")
     apply(plugin = "org.springframework.boot")
     apply(plugin = "io.spring.dependency-management")
-
-    group = "io.github.jongminchung"
-    version = "3.0.0"
 
     java.toolchain.languageVersion = JavaLanguageVersion.of(21)
     java.sourceCompatibility = JavaVersion.VERSION_21

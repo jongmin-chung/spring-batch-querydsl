@@ -1,5 +1,12 @@
 # Spring Batch QuerydslItemReader
 
+> [!NOTE]
+> https://central.sonatype.com/search?q=io.github.jongmin_chung
+
+## Forked from
+
+This project is a fork of [jojoldu/spring-batch-querydsl](https://github.com/jojoldu/spring-batch-querydsl)
+
 Querydsl ItemReader For Spring Batch
 
 ## Usage
