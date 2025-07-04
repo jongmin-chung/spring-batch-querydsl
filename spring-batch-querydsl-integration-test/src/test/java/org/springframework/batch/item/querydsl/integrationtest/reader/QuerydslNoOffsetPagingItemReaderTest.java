@@ -18,7 +18,6 @@ import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetNu
 import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetStringOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import jakarta.persistence.EntityManagerFactory;
 import java.time.LocalDate;
@@ -39,7 +38,7 @@ class QuerydslNoOffsetPagingItemReaderTest {
     private EntityManagerFactory emf;
 
     @AfterEach
-    void after() throws Exception {
+    void after() {
         manufactureRepository.deleteAllInBatch();
     }
 

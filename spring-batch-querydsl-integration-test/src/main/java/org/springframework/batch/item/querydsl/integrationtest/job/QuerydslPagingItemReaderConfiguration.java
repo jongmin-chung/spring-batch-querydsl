@@ -62,6 +62,7 @@ public class QuerydslPagingItemReaderConfiguration {
     }
 
     @Bean
+    @JobScope
     public Step step() {
         return new StepBuilder("querydslPagingReaderStep", jobRepository)
                 .<Manufacture, ManufactureBackup>chunk(chunkSize, platformTransactionManager)
@@ -72,6 +73,7 @@ public class QuerydslPagingItemReaderConfiguration {
     }
 
     @Bean
+    @JobScope
     public QuerydslPagingItemReader<Manufacture> reader() {
         return new QuerydslPagingItemReader<>(emf, chunkSize, queryFactory -> queryFactory
                 .selectFrom(manufacture)
@@ -83,6 +85,7 @@ public class QuerydslPagingItemReaderConfiguration {
     }
 
     @Bean
+    @JobScope
     public JpaItemWriter<ManufactureBackup> writer() {
         return new JpaItemWriterBuilder<ManufactureBackup>()
                 .entityManagerFactory(emf)

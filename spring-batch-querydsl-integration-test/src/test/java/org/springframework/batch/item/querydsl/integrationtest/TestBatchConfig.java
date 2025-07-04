@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Import;
  */
 @Configuration
 @EnableAutoConfiguration
-@EnableBatchProcessing
 @Import(QuerydslConfiguration.class)
 public class TestBatchConfig {
 

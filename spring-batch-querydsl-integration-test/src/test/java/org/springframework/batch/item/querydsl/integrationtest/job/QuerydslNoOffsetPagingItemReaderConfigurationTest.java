@@ -16,7 +16,6 @@ import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -47,7 +46,7 @@ class QuerydslNoOffsetPagingItemReaderConfigurationTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @AfterEach
-    void after() {
+    void teardown() {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();
     }

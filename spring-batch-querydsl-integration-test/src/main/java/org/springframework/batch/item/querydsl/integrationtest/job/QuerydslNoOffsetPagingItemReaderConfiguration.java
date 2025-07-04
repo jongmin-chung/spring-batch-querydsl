@@ -32,8 +32,8 @@ import static org.springframework.batch.item.querydsl.integrationtest.entity.QMa
  */
 
 @Slf4j // log 사용을 위한 lombok 어노테이션
-@RequiredArgsConstructor // 생성자 DI를 위한 lombok 어노테이션
 @Configuration
+@RequiredArgsConstructor // 생성자 DI를 위한 lombok 어노테이션
 public class QuerydslNoOffsetPagingItemReaderConfiguration {
     public static final String JOB_NAME = "querydslNoOffsetPagingReaderJob";
 
@@ -63,6 +63,7 @@ public class QuerydslNoOffsetPagingItemReaderConfiguration {
     }
 
     @Bean
+    @JobScope
     public Step step() {
         return new StepBuilder("querydslNoOffsetPagingReaderStep", jobRepository)
                 .<Manufacture, ManufactureBackup>chunk(chunkSize, platformTransactionManager)
@@ -73,6 +74,7 @@ public class QuerydslNoOffsetPagingItemReaderConfiguration {
     }
 
     @Bean
+    @JobScope
     public QuerydslNoOffsetPagingItemReader<Manufacture> reader() {
         // 1. No Offset 옵션
         QuerydslNoOffsetNumberOptions<Manufacture, Long> options =
@@ -89,6 +91,7 @@ public class QuerydslNoOffsetPagingItemReaderConfiguration {
     }
 
     @Bean
+    @JobScope
     public JpaItemWriter<ManufactureBackup> writer() {
         return new JpaItemWriterBuilder<ManufactureBackup>()
                 .entityManagerFactory(emf)

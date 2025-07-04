@@ -1,7 +1,4 @@
 spring:
-  config:
-    activate:
-      on-profile: local
   datasource:
     hikari:
       auto-commit: false
@@ -10,11 +7,10 @@ spring:
       ddl-auto: none
     show-sql: true
     properties:
-      hibernate.dialect: org.hibernate.dialect.MySQL57Dialect
+      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
       hibernate.hbm2ddl.import_files_sql_extractor: org.hibernate.tool.hbm2ddl.MultipleLinesSqlCommandExtractor
       hibernate.default_batch_fetch_size: ${chunkSize:1000}
     open-in-view: false
-spring.batch.job.name: ${job.name:NONE}
 logging.level.org.springframework.batch.item.querydsl.reader: DEBUG
 
 ---
@@ -22,13 +18,14 @@ spring:
   config:
     activate:
       on-profile: test
-  jpa:
-    hibernate:
-      ddl-auto: update
-    show-sql: true
   datasource:
     hikari:
       jdbc-url: jdbc:h2:mem:testdb;MODE=MYSQL
       username: sa
       password:
       driver-class-name: org.h2.Driver
+      maximum-pool-size: 30
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true

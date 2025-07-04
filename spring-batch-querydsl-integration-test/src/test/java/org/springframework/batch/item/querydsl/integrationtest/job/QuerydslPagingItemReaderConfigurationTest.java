@@ -16,7 +16,6 @@ import org.springframework.batch.test.JobLauncherTestUtils;
 import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -45,14 +44,8 @@ class QuerydslPagingItemReaderConfigurationTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
-    @BeforeEach
-    void setUp() {
-        productRepository.deleteAllInBatch();
-        productBackupRepository.deleteAllInBatch();
-    }
-
     @AfterEach
-    void afterEach() {
+    void setUp() {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();
     }

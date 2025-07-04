@@ -3,7 +3,6 @@ package org.springframework.batch.item.querydsl.integrationtest.reader.options;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.querydsl.integrationtest.TestBatchConfig;
@@ -15,7 +14,6 @@ import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetNu
 import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetStringOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.util.function.Function;
@@ -29,7 +27,7 @@ import static org.springframework.batch.item.querydsl.integrationtest.entity.QMa
  * Github : http://github.com/jojoldu
  */
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslNoOffsetPagingItemReaderConfiguration.class})
-public class QuerydslNoOffsetOptionsTest {
+class QuerydslNoOffsetOptionsTest {
 
     @Autowired
     private JPAQueryFactory queryFactory;
@@ -38,12 +36,12 @@ public class QuerydslNoOffsetOptionsTest {
     private ManufactureRepository manufactureRepository;
 
     @AfterEach
-    void after() throws Exception {
+    void teardown() {
         manufactureRepository.deleteAllInBatch();
     }
 
     @Test
-    void path변수에서_필드명을_추출한다() throws Exception {
+    void path변수에서_필드명을_추출한다() {
         //given
         String expected = "id";
         NumberPath<Long> path = manufacture.id;

@@ -32,9 +32,7 @@ public class QuerydslZeroPagingItemReader<T> extends QuerydslPagingItemReader<T>
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void doReadPage() {
-
         EntityTransaction tx = getTxOrNull();
 
         JPQLQuery<T> query = createQuery()

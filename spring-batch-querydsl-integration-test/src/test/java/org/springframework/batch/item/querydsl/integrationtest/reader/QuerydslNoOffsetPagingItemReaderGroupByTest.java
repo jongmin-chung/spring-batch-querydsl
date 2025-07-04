@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import jakarta.persistence.EntityManagerFactory;
+
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,7 +30,7 @@ class QuerydslNoOffsetPagingItemReaderGroupByTest {
     private EntityManagerFactory emf;
 
     @AfterEach
-    void after() throws Exception {
+    void tearDown() {
         manufactureRepository.deleteAllInBatch();
     }
 

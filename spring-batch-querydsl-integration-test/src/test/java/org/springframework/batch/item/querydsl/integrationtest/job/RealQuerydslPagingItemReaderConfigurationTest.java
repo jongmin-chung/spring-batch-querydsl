@@ -34,8 +34,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBatchTest
 @ActiveProfiles(profiles = "real")
 @Disabled
-public class RealQuerydslPagingItemReaderConfigurationTest {
-    public static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
+class RealQuerydslPagingItemReaderConfigurationTest {
+    static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
 
     @Autowired
     private ManufactureRepository productRepository;
@@ -48,13 +48,13 @@ public class RealQuerydslPagingItemReaderConfigurationTest {
     private JobLauncherTestUtils jobLauncherTestUtils;
 
     @AfterEach
-    public void after() throws Exception {
+    void after() {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();
     }
 
     @Test
-    public void Product가_ProductBackup으로_이관된다() throws Exception {
+    void Product가_ProductBackup으로_이관된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";

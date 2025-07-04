@@ -30,9 +30,7 @@ public class QuerydslNoOffsetPagingItemReader<T> extends QuerydslPagingItemReade
     }
 
     @Override
-    @SuppressWarnings("unchecked")
     protected void doReadPage() {
-
         EntityTransaction tx = getTxOrNull();
 
         JPQLQuery<T> query = createQuery().limit(getPageSize());
@@ -61,10 +59,10 @@ public class QuerydslNoOffsetPagingItemReader<T> extends QuerydslPagingItemReade
 
     // 조회결과가 Empty이면 results에 null이 담긴다
     private boolean isNotEmptyResults() {
-        return !CollectionUtils.isEmpty(results) && results.get(0) != null;
+        return !CollectionUtils.isEmpty(results) && results.getFirst() != null;
     }
 
     private T getLastItem() {
-        return results.get(results.size() - 1);
+        return results.getLast();
     }
 }

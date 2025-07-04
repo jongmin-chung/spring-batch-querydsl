@@ -1,6 +1,7 @@
 package org.springframework.batch.item.querydsl.integrationtest.reader;
 
 import jakarta.persistence.EntityManagerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.ExecutionContext;
@@ -22,6 +23,7 @@ import static org.springframework.batch.item.querydsl.integrationtest.entity.QMa
  * Blog : http://jojoldu.tistory.com
  * Github : http://github.com/jojoldu
  */
+@Slf4j
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslPagingItemReaderConfiguration.class})
 class QuerydslPagingItemReaderTest {
 
@@ -32,7 +34,7 @@ class QuerydslPagingItemReaderTest {
     private EntityManagerFactory emf;
 
     @AfterEach
-    void tearDown() throws Exception {
+    void tearDown() {
         manufactureRepository.deleteAllInBatch();
     }
 
