@@ -3,10 +3,9 @@ package org.springframework.batch.item.querydsl.integrationtest.reader.options;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.querydsl.integrationtest.TestBatchConfig;
 import org.springframework.batch.item.querydsl.integrationtest.entity.Manufacture;
 import org.springframework.batch.item.querydsl.integrationtest.entity.ManufactureRepository;
@@ -29,7 +28,6 @@ import static org.springframework.batch.item.querydsl.integrationtest.entity.QMa
  * Blog : http://jojoldu.tistory.com
  * Github : http://github.com/jojoldu
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslNoOffsetPagingItemReaderConfiguration.class})
 public class QuerydslNoOffsetOptionsTest {
 
@@ -39,13 +37,13 @@ public class QuerydslNoOffsetOptionsTest {
     @Autowired
     private ManufactureRepository manufactureRepository;
 
-    @After
-    public void after() throws Exception {
+    @AfterEach
+    void after() throws Exception {
         manufactureRepository.deleteAllInBatch();
     }
 
     @Test
-    public void path변수에서_필드명을_추출한다() throws Exception {
+    void path변수에서_필드명을_추출한다() throws Exception {
         //given
         String expected = "id";
         NumberPath<Long> path = manufacture.id;
@@ -58,7 +56,7 @@ public class QuerydslNoOffsetOptionsTest {
     }
 
     @Test
-    public void Number_firstId_lastId_저장된다() {
+    void Number_firstId_lastId_저장된다() {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";
@@ -84,7 +82,7 @@ public class QuerydslNoOffsetOptionsTest {
     }
 
     @Test
-    public void String_firstId_lastId_저장된다() {
+    void String_firstId_lastId_저장된다() {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         int categoryNo = 1;
@@ -111,7 +109,7 @@ public class QuerydslNoOffsetOptionsTest {
     }
 
     @Test
-    public void groupBy절인지_확인_할수_있다() throws Exception {
+    void groupBy절인지_확인_할수_있다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         QuerydslNoOffsetStringOptions<Manufacture> options =
@@ -132,7 +130,7 @@ public class QuerydslNoOffsetOptionsTest {
     }
 
     @Test
-    public void group만_있으면_false() throws Exception {
+    void group만_있으면_false() throws Exception {
         //given
         QuerydslNoOffsetStringOptions<Manufacture> options =
                 new QuerydslNoOffsetStringOptions<>(manufacture.name, Expression.DESC);

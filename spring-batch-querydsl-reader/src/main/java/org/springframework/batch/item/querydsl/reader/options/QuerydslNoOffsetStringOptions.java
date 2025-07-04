@@ -6,7 +6,7 @@ import com.querydsl.core.types.dsl.StringPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.batch.item.querydsl.reader.expression.Expression;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public class QuerydslNoOffsetStringOptions<T> extends QuerydslNoOffsetOptions<T> {
 

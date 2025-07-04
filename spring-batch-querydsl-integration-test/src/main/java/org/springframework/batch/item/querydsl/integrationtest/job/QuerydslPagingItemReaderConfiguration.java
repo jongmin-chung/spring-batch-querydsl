@@ -4,9 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
-import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
 import org.springframework.batch.core.configuration.annotation.JobScope;
-import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
+import org.springframework.batch.core.job.builder.JobBuilder;
+import org.springframework.batch.core.repository.JobRepository;
+import org.springframework.batch.core.step.builder.StepBuilder;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.batch.item.database.JpaItemWriter;
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
@@ -17,7 +18,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
+import org.springframework.transaction.PlatformTransactionManager;
 
 import static org.springframework.batch.item.querydsl.integrationtest.entity.QManufacture.manufacture;
 
@@ -34,10 +36,10 @@ import static org.springframework.batch.item.querydsl.integrationtest.entity.QMa
 public class QuerydslPagingItemReaderConfiguration {
     public static final String JOB_NAME = "querydslPagingReaderJob";
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory emf;
     private final QuerydslPagingItemReaderJobParameter jobParameter;
+    private final JobRepository jobRepository;
+    private final PlatformTransactionManager platformTransactionManager;
 
     private int chunkSize;
 
@@ -54,15 +56,15 @@ public class QuerydslPagingItemReaderConfiguration {
 
     @Bean
     public Job job() {
-        return jobBuilderFactory.get(JOB_NAME)
+        return new JobBuilder(JOB_NAME, jobRepository)
                 .start(step())
                 .build();
     }
 
     @Bean
     public Step step() {
-        return stepBuilderFactory.get("querydslPagingReaderStep")
-                .<Manufacture, ManufactureBackup>chunk(chunkSize)
+        return new StepBuilder("querydslPagingReaderStep", jobRepository)
+                .<Manufacture, ManufactureBackup>chunk(chunkSize, platformTransactionManager)
                 .reader(reader())
                 .processor(processor())
                 .writer(writer())

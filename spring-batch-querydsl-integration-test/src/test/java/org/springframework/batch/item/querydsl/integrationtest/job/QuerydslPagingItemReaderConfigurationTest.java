@@ -1,9 +1,8 @@
 package org.springframework.batch.item.querydsl.integrationtest.job;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -31,11 +30,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Blog : http://jojoldu.tistory.com
  * Github : http://github.com/jojoldu
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslPagingItemReaderConfiguration.class})
 @SpringBatchTest
-public class QuerydslPagingItemReaderConfigurationTest {
-    public static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
+class QuerydslPagingItemReaderConfigurationTest {
+    static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
 
     @Autowired
     private ManufactureRepository productRepository;
@@ -47,20 +45,20 @@ public class QuerydslPagingItemReaderConfigurationTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
-    @Before
-    public void setUp() throws Exception {
+    @BeforeEach
+    void setUp() {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();
     }
 
-    @After
-    public void after() throws Exception {
+    @AfterEach
+    void afterEach() {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();
     }
 
     @Test
-    public void Product가_ProductBackup으로_이관된다() throws Exception {
+    void Product가_ProductBackup으로_이관된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";

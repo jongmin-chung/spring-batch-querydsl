@@ -5,9 +5,8 @@ import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.querydsl.integrationtest.TestBatchConfig;
 import org.springframework.batch.item.querydsl.integrationtest.entity.Manufacture;
@@ -21,15 +20,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.batch.item.querydsl.integrationtest.entity.QManufacture.manufacture;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslNoOffsetPagingItemReaderConfiguration.class})
-public class QuerydslNoOffsetPagingItemReaderTest {
+class QuerydslNoOffsetPagingItemReaderTest {
 
     @Autowired
     private JPAQueryFactory queryFactory;
@@ -40,13 +38,13 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     @Autowired
     private EntityManagerFactory emf;
 
-    @After
-    public void after() throws Exception {
+    @AfterEach
+    void after() throws Exception {
         manufactureRepository.deleteAllInBatch();
     }
 
     @Test
-    public void 쿼리생성후_체이닝여부_확인() {
+    void 쿼리생성후_체이닝여부_확인() {
         //given
         LocalDate startDate = LocalDate.of(2020,1,11);
         LocalDate endDate = LocalDate.of(2020,1,11);
@@ -68,7 +66,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void 쿼리생성후_select_오버라이딩_확인() {
+    void 쿼리생성후_select_오버라이딩_확인() {
         //given
         LocalDate startDate = LocalDate.of(2020,1,11);
         LocalDate endDate = LocalDate.of(2020,1,11);
@@ -87,7 +85,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void reader가_정상적으로_값을반환한다() throws Exception {
+    void reader가_정상적으로_값을반환한다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";
@@ -119,7 +117,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void reader가_역순으로_값을반환한다() throws Exception {
+    void reader가_역순으로_값을반환한다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";
@@ -151,7 +149,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void 빈값일경우_null이_반환된다() throws Exception {
+    void 빈값일경우_null이_반환된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
 
@@ -173,7 +171,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void pageSize에_맞게_값을반환한다() throws Exception {
+    void pageSize에_맞게_값을반환한다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";
@@ -209,7 +207,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void int필드도_nooffset이_적용된다() throws Exception {
+    void int필드도_nooffset이_적용된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         long price = 1000;
@@ -241,7 +239,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void 조회결과가없어도_정상조회된다() throws Exception {
+    void 조회결과가없어도_정상조회된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
 
@@ -263,7 +261,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void 문자열필드_DESC_nooffset이_적용된다() throws Exception {
+    void 문자열필드_DESC_nooffset이_적용된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         int categoryNo = 1;
@@ -295,7 +293,7 @@ public class QuerydslNoOffsetPagingItemReaderTest {
     }
 
     @Test
-    public void 문자열필드_ASC_nooffset이_적용된다() throws Exception {
+    void 문자열필드_ASC_nooffset이_적용된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         int categoryNo = 1;

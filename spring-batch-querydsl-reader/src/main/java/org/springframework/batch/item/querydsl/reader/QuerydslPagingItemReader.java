@@ -8,9 +8,9 @@ import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,10 +125,6 @@ public class QuerydslPagingItemReader<T> extends AbstractPagingItemReader<T> {
                 results.add(entity);
             }
         }
-    }
-
-    @Override
-    protected void doJumpToPage(int itemIndex) {
     }
 
     @Override

@@ -7,8 +7,8 @@ import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetNu
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import java.util.function.Function;
 
 public class QuerydslNoOffsetIdPagingItemReader<T, N extends Number & Comparable<?>> extends QuerydslPagingItemReader<T> {

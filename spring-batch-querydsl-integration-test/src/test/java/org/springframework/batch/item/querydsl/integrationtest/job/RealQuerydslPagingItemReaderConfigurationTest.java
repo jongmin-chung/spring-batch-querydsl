@@ -1,9 +1,8 @@
 package org.springframework.batch.item.querydsl.integrationtest.job;
 
-import org.junit.After;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -18,7 +17,6 @@ import org.springframework.batch.test.context.SpringBatchTest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,11 +30,10 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Blog : http://jojoldu.tistory.com
  * Github : http://github.com/jojoldu
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslPagingItemReaderConfiguration.class})
 @SpringBatchTest
 @ActiveProfiles(profiles = "real")
-@Ignore
+@Disabled
 public class RealQuerydslPagingItemReaderConfigurationTest {
     public static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
 
@@ -50,7 +47,7 @@ public class RealQuerydslPagingItemReaderConfigurationTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
-    @After
+    @AfterEach
     public void after() throws Exception {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();

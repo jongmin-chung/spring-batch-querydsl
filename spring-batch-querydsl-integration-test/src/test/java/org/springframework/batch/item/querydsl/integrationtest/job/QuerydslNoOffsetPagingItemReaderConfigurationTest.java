@@ -1,8 +1,7 @@
 package org.springframework.batch.item.querydsl.integrationtest.job;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.core.BatchStatus;
 import org.springframework.batch.core.JobExecution;
 import org.springframework.batch.core.JobParameters;
@@ -31,12 +30,11 @@ import static org.assertj.core.api.Assertions.assertThat;
  * Blog : http://jojoldu.tistory.com
  * Github : http://github.com/jojoldu
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {TestBatchConfig.class, QuerydslNoOffsetPagingItemReaderConfiguration.class})
 @SpringBatchTest
 @TestPropertySource(properties = "chunkSize=1")
-public class QuerydslNoOffsetPagingItemReaderConfigurationTest {
-    public static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
+@SpringBootTest(classes = {TestBatchConfig.class, QuerydslNoOffsetPagingItemReaderConfiguration.class})
+class QuerydslNoOffsetPagingItemReaderConfigurationTest {
+    static final DateTimeFormatter FORMATTER = ofPattern("yyyy-MM-dd");
 
     @Autowired
     private ManufactureRepository productRepository;
@@ -48,14 +46,14 @@ public class QuerydslNoOffsetPagingItemReaderConfigurationTest {
     @Autowired
     private JobLauncherTestUtils jobLauncherTestUtils;
 
-    @After
-    public void after() throws Exception {
+    @AfterEach
+    void after() {
         productRepository.deleteAllInBatch();
         productBackupRepository.deleteAllInBatch();
     }
 
     @Test
-    public void Product가_ProductBackup으로_이관된다() throws Exception {
+    void Product가_ProductBackup으로_이관된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";
@@ -75,7 +73,7 @@ public class QuerydslNoOffsetPagingItemReaderConfigurationTest {
         //then
         assertThat(jobExecution.getStatus()).isEqualTo(BatchStatus.COMPLETED);
         List<ManufactureBackup> backups = productBackupRepository.findAll();
-        assertThat(backups.size()).isEqualTo(2);
+        assertThat(backups).hasSize(2);
         assertThat(backups.get(0).getPrice()).isEqualTo(expected1);
         assertThat(backups.get(1).getPrice()).isEqualTo(expected2);
     }

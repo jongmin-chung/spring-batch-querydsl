@@ -37,8 +37,4 @@ public class ProductRepositoryItemReader extends AbstractPagingItemReader<Manufa
 
         results.addAll(products);
     }
-
-    @Override
-    protected void doJumpToPage(int itemIndex) {
-    }
 }

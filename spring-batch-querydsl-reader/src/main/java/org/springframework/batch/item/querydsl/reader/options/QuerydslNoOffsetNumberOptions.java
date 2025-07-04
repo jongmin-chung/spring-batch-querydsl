@@ -6,7 +6,7 @@ import com.querydsl.core.types.dsl.NumberPath;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.batch.item.querydsl.reader.expression.Expression;
 
-import javax.annotation.Nonnull;
+import jakarta.annotation.Nonnull;
 
 public class QuerydslNoOffsetNumberOptions<T, N extends Number & Comparable<?>> extends QuerydslNoOffsetOptions <T>{
 

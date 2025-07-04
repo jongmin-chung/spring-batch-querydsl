@@ -7,8 +7,8 @@ import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetOp
 import org.springframework.util.ClassUtils;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityTransaction;
 import java.util.function.Function;
 
 public class QuerydslNoOffsetPagingItemReader<T> extends QuerydslPagingItemReader<T> {

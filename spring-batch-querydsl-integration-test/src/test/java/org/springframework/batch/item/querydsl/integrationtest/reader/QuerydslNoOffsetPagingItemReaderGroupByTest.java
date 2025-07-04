@@ -1,8 +1,7 @@
 package org.springframework.batch.item.querydsl.integrationtest.reader;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.querydsl.integrationtest.TestBatchConfig;
 import org.springframework.batch.item.querydsl.integrationtest.entity.Manufacture;
@@ -13,17 +12,15 @@ import org.springframework.batch.item.querydsl.reader.expression.Expression;
 import org.springframework.batch.item.querydsl.reader.options.QuerydslNoOffsetStringOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManagerFactory;
+import jakarta.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.batch.item.querydsl.integrationtest.entity.QManufacture.manufacture;
 
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslNoOffsetPagingItemReaderConfiguration.class})
-public class QuerydslNoOffsetPagingItemReaderGroupByTest {
+class QuerydslNoOffsetPagingItemReaderGroupByTest {
 
     @Autowired
     private ManufactureRepository manufactureRepository;
@@ -31,13 +28,13 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
     @Autowired
     private EntityManagerFactory emf;
 
-    @After
-    public void after() throws Exception {
+    @AfterEach
+    void after() throws Exception {
         manufactureRepository.deleteAllInBatch();
     }
 
     @Test
-    public void groupBy_ASC_nooffset이_적용된다() throws Exception {
+    void groupBy_ASC_nooffset이_적용된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         int categoryNo = 1;
@@ -71,7 +68,7 @@ public class QuerydslNoOffsetPagingItemReaderGroupByTest {
     }
 
     @Test
-    public void groupBy_DESC_nooffset이_적용된다() throws Exception {
+    void groupBy_DESC_nooffset이_적용된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         int categoryNo = 1;

@@ -1,8 +1,8 @@
 package org.springframework.batch.item.querydsl.integrationtest.reader;
 
-import org.junit.After;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import jakarta.persistence.EntityManagerFactory;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.batch.item.ExecutionContext;
 import org.springframework.batch.item.querydsl.integrationtest.TestBatchConfig;
 import org.springframework.batch.item.querydsl.integrationtest.entity.Manufacture;
@@ -11,9 +11,7 @@ import org.springframework.batch.item.querydsl.integrationtest.job.QuerydslPagin
 import org.springframework.batch.item.querydsl.reader.QuerydslPagingItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,9 +22,8 @@ import static org.springframework.batch.item.querydsl.integrationtest.entity.QMa
  * Blog : http://jojoldu.tistory.com
  * Github : http://github.com/jojoldu
  */
-@RunWith(SpringRunner.class)
 @SpringBootTest(classes = {TestBatchConfig.class, QuerydslPagingItemReaderConfiguration.class})
-public class QuerydslPagingItemReaderTest {
+class QuerydslPagingItemReaderTest {
 
     @Autowired
     private ManufactureRepository manufactureRepository;
@@ -34,13 +31,13 @@ public class QuerydslPagingItemReaderTest {
     @Autowired
     private EntityManagerFactory emf;
 
-    @After
-    public void tearDown() throws Exception {
+    @AfterEach
+    void tearDown() throws Exception {
         manufactureRepository.deleteAllInBatch();
     }
 
     @Test
-    public void reader가_정상적으로_값을반환한다() throws Exception {
+    void reader가_정상적으로_값을반환한다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
         String name = "a";
@@ -70,7 +67,7 @@ public class QuerydslPagingItemReaderTest {
     }
 
     @Test
-    public void 빈값일경우_null이_반환된다() throws Exception {
+    void 빈값일경우_null이_반환된다() throws Exception {
         //given
         LocalDate txDate = LocalDate.of(2020,10,12);
 
